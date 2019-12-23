@@ -11,3 +11,4 @@ node_modules
 
 # pacel cache
 .parcel-cache
+.cache
