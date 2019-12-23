@@ -1,5 +1,0 @@
-{
-  "rewrites": [
-    { "source": "/dedicated-worker", "destination": "/dedicated-worker/.html" }
-  ]
-}
