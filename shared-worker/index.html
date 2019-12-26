@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Shared Worker example: Download</title>
+  <style>
+    body {
+      margin: 2em;
+    }
+
+    #status {
+      color: red;
+    }
+
+    #message {
+      margin-top: 20px;
+    }
+
+    #result {
+      word-break: break-all;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: 50% 50%;
+      column-gap: 1em;
+    }
+
+    .inner {
+      width: 100%;
+      align-self: stretch;
+      min-height: 500px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section>
+      <p>
+        status: <span id="status">initial</span>
+      </p>
+      <div id="message">
+        <h2>Messages</h2>
+      </div>
+      <div id="result"></div>
+    </section>
+    <iframe class="inner" src="./inner.html"></iframe>
+  </div>
+  <script src="./main.js"></script>
+</body>
+</html>

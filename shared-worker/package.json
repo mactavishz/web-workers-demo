@@ -1,0 +1,12 @@
+{
+  "name": "shared-worker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "serve": "serve -l 9090"
+  },
+  "devDependencies": {
+    "serve": "^11.2.0"
+  }
+}
