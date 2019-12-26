@@ -8,38 +8,48 @@ window.onload = () => {
 
   worker.port.addEventListener('message', event => {
     const { data } = event
-    if (data.action === 'message') {
-      message.innerHTML += `<p><strong>No.${messageCount++}: </strong>${data.value}</p>`
-    } else if (data.action === 'result') {
-      status.textContent = 'success'
-      result.innerHTML = `
-      <h2 style="text-align: center;">Github Trending</h2>
-      <ul style="list-style: none; padding: 0;">
-        ${data.value.map(item => {
-          return `<li style="margin: .5em 0; border: 1px solid #ddd; padding: 0 15px;">
-            <div>
-              <p>Name: <strong>${item.name}</strong></p>
-              <p>Description: ${item.description}</p>
-              <p>Repo: <a href="${item.url}">${item.url}</a></p>
-            </div>
-          </li>`
-        }).join('\n')}
-      </ul>
-      `
-      
-      JSON.stringify(data.value)
-    } else if (data.action === 'id') {
-      id = data.value
+    switch (data.action) {
+      case 'id':
+        id = data.value
+        break
+      case 'message':
+        message.innerHTML += `<p><strong>No.${messageCount++}: </strong>${data.value}</p>`
+        break
+      case 'result':
+        status.textContent = 'success'
+        result.innerHTML = `
+          <h2 style="text-align: center;">Github Trending</h2>
+          ${renderTrendingList(data.value || [])}
+        `
+        break
+      default:
+        break
     }
   })
   
-  status.textContent = 'pending'
   worker.port.start()
 
   setTimeout(() => {
+    status.textContent = 'pending'
     worker.port.postMessage({
       action: 'start',
       value: id
     })
   }, Math.floor(Math.random() * 10) * 1000)
+}
+
+function renderTrendingList (list) {
+  return `
+  <ul style="list-style: none; padding: 0;">
+    ${list.map(item => {
+      return `<li style="margin: .5em 0; border: 1px solid #ddd; padding: 0 15px;">
+        <div>
+          <p>Name: <strong>${item.name}</strong></p>
+          <p>Description: ${item.description}</p>
+          <p>Repo: <a href="${item.url}">${item.url}</a></p>
+        </div>
+      </li>`
+    }).join('\n')}
+  </ul>
+  `
 }
